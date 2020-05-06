@@ -66,7 +66,7 @@ int main(int argc, char const *argv[])
         close(server_fd); 
         int setuidVal = setuid(-1); //drop privileges by setuid to "nobody"
 
-        if(setuidVal != 0) //if drop privileges is not successful
+        if(setuidVal != 0) //exit, if drop privileges is not successful
             exit(EXIT_FAILURE); 
 
         valread = read( new_socket , buffer, 1024); //process data from client
