@@ -13,7 +13,7 @@ int main(int argc, char const *argv[])
 	int passed_socket_descriptor;
     const char* hello_msg;
 
-	if(argc > 1){
+	if(argc > 1){ //if args are present
         passed_socket_descriptor=*argv[1];
 		hello_msg=argv[2];
 	}
