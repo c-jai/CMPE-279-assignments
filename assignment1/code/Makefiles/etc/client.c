@@ -6,7 +6,7 @@
 #include <netinet/in.h>  
 #include <arpa/inet.h> //added this, ref: https://stackoverflow.com/questions/45689306/inet-pton-function-where-is-the-binary
 #include <string.h> 
-#define PORT 8080 
+#define PORT 80
    
 int main(int argc, char const *argv[]) 
 { 

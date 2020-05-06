@@ -5,7 +5,7 @@
 #include <stdlib.h> 
 #include <netinet/in.h> 
 #include <string.h> 
-#define PORT 8080 
+#define PORT 80
 
     int server_fd, new_socket, valread; 
     struct sockaddr_in address; 
@@ -13,8 +13,6 @@
     int addrlen = sizeof(address); 
     char buffer[1024] = {0}; 
     char *hello = "Hello from server"; 
-
-    pid_t childpid; 
 
        
     int createSocket(){
@@ -52,6 +50,8 @@
         return 0;
     }
 
+    pid_t pid; 
+
     int processDataFromClient(){
         //accept connection from client and process data from client
         if ((new_socket = accept(server_fd, (struct sockaddr *)&address,  
@@ -61,11 +61,12 @@
             exit(EXIT_FAILURE); 
         } 
 
-        if(childpid = fork() == 0) //child process
+        pid = fork();
+        if(pid == 0) //if child process
         {
             close(server_fd); 
 
-            if(setuid(-1) == 0) //drop privileges
+            if(setuid(-1) != 0) //if drop privileges is not successful
                 exit(EXIT_FAILURE); 
 
             valread = read( new_socket , buffer, 1024);
@@ -77,7 +78,7 @@
 
         close(new_socket); 
 
-        if(childpid < 0){ // error in creating child process
+        if(pid < 0){ // error in creating child process
             perror("accept");
             exit(EXIT_FAILURE);
         }
